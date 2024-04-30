@@ -33,9 +33,14 @@ variable "bq_dataset_friendly_name" {
     default = "uk-real-estate-analytics-dataset"
 }
 
+variable "vpc_network" {
+    description = "VPC Network"
+    default = "real-estate-vpc-network"
+}
+
 variable "vm_instance_name" {
     description = "VM Instance Name"
-    default = "uk_real_estate_analytics_vm"
+    default = "uk-real-estate-analytics-vm"
 }
 
 variable "vm_machine_type" {
@@ -51,11 +56,6 @@ variable "vm_zone" {
 variable "vm_image" {
     description = "VM Boot Disk Image"
     default = "ubuntu-os-cloud/ubuntu-2204-lts"
-}
-
-variable "vm_network" {
-    description = "VM Network"
-    default = "real_estate_vm_network"
 }
 
 variable "vm_startup_script_path" {

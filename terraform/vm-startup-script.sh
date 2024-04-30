@@ -1,4 +1,29 @@
 #!/bin/bash
+# Script Name: vm-startup-script.sh
+#
+# Author: Kenneth Imade
+# Date: 30/04/2024
+# Modified by: Kenneth Imade
+# Last Modified: 30/04/2024
+#
+#
+#
+# Description:
+#   This script sets up the production environment to run the data pipeline.
+#   It will be called by terraform during its apply process.
+# 
+# Usage:
+#   ./vm-startup-script.sh
+# 
+# Arguments:
+#   None
+# 
+# Outputs:
+#   None
+#
+# 
+# Dependencies:
+#   None.
 
 # Environment variable
 export ENVIRONMENT=prod

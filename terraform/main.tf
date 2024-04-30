@@ -27,8 +27,47 @@ resource "google_bigquery_dataset" "uk_real_estate_analytics" {
   location = var.location
 }
 
+# Custom Network for VM
+resource "google_compute_network" "vpc_network" {
+  name                    = var.vpc_network
+  auto_create_subnetworks = false  # Important for creating custom subnetworks
+}
+
+resource "google_compute_subnetwork" "custom_subnetwork" {
+  name          = "custom-subnetwork"
+  network       = google_compute_network.vpc_network.name
+  ip_cidr_range = "10.0.0.0/16"
+  region        = var.region
+}
+
+resource "google_compute_firewall" "allow_ssh" {
+  name    = "ssh-and-icmp"
+  network = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  allow {
+    protocol = "icmp"
+  }
+}
+
+resource "google_compute_firewall" "internal_traffic" {
+  name    = "internal-traffic"
+  network = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "all"
+  }
+
+  source_ranges = ["10.0.0.0/8"]
+}
+
+
 # VM Instance
-resource "google_compute_instance" "uk_real_estate_analytics_vm" {
+resource "google_compute_instance" "uk-real-estate-analytics-vm" {
   name = var.vm_instance_name
   machine_type = var.vm_machine_type
   zone = var.vm_zone
@@ -40,8 +79,8 @@ resource "google_compute_instance" "uk_real_estate_analytics_vm" {
   }
 
   network_interface {
-    network = var.vm_network
-    access_config {}
+    network    = "projects/personal-projects-420210/global/networks/real-estate-vpc-network"
+    subnetwork = google_compute_subnetwork.custom_subnetwork.self_link
   }
 
   service_account {
