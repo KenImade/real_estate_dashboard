@@ -1,0 +1,8 @@
+version: 2
+
+seeds:
+    - name: postcodes_lookup
+      description: >
+        Postcodes for the United Kingdom with their corresponding
+        easting, northing, latitude, longitude, town, region, country,
+        and country abbreviation values.

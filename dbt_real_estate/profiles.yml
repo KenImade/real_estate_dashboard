@@ -1,0 +1,35 @@
+dbt_real_estate:
+  outputs:
+    dev:
+      dataset: uk_real_estate_analytics_bq_dataset_personal_projects_420210
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: ../keys/my-creds.json
+      location: US
+      method: service-account
+      priority: interactive
+      project: personal-projects-420210
+      threads: 2
+      type: bigquery
+    test:
+      dataset: uk_real_estate_analytics_bq_dataset_personal_projects_420210
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: /opt/airflow/secrets/key.json
+      location: US
+      method: service-account
+      priority: interactive
+      project: personal-projects-420210
+      threads: 2
+      type: bigquery
+    prod:
+      dataset: uk_real_estate_analytics_bq_dataset_personal_projects_420210
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      method: oauth
+      location: US
+      priority: interactive
+      project: personal-projects-420210
+      threads: 2
+      type: bigquery
+  target: "{{ env_var('ENVIRONMENT') }}"
