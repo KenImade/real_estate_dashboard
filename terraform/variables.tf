@@ -5,7 +5,7 @@ variable "project_id" {
 
 variable "key" {
     description = "Path to Google Service Account"
-    default = "keys/my-creds.json"
+    default = "../keys/my-creds.json"
 }
 
 variable "region" {
