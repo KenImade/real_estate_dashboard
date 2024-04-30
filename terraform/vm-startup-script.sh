@@ -2,6 +2,7 @@
 
 # Environment variable
 export ENVIRONMENT=prod
+export GOOGLE_APPLICATION_CREDENTIALS_LOCAL=
 
 # Update the package listing
 sudo apt-get update
@@ -41,4 +42,4 @@ git clone https://github.com/KenImade/real_estate_dashboard /usr/local/real_esta
 cd /usr/local/real_estate_dashboard
 
 # Run Docker Compose
-docker-compose up -d
+docker-compose --env-file .env.production up -d
