@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Environment variable
+export ENVIRONMENT=prod
+
 # Update the package listing
 sudo apt-get update
 
