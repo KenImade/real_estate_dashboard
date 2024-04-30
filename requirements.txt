@@ -1,0 +1,21 @@
+# Airflow
+apache-airflow==2.9.0
+apache-airflow-providers-google
+
+# dbt
+dbt-core
+dbt-bigquery
+
+# Google Cloud Integrations
+google-cloud-bigquery
+google-cloud-storage
+
+# Database and Web Server
+SQLAlchemy==1.4.49
+alembic
+psycopg2-binary>=2.9  # You need to add this for PostgreSQL support
+Flask==2.2.5
+gunicorn==21.2.0
+
+# Pandas
+pandas
