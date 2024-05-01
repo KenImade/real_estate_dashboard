@@ -60,6 +60,7 @@ chmod -R 777 dags data logs scripts
 
 # Create env file
 echo "AIRFLOW_WEBSERVER_SECRET_KEY=KnsbA9ruUFuYMNoZfkuZXn6AxgBpokOFa-mUEdlw0Ec" >> .env
+echo "ENVIRONMENT=prod">>.env
 
 echo "Running Docker Compose..."
 
