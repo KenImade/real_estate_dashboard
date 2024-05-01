@@ -48,10 +48,11 @@ sudo apt-get update
 yes | sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "Cloning the repository..."
-git clone https://github.com/KenImade/real_estate_dashboard.git /home/real_estate_dashboard
+cd $(whoami)
+git clone https://github.com/KenImade/real_estate_dashboard.git real_estate_dashboard
 
 echo "Changing to the directory..."
-cd /home/real_estate_dashboard
+cd real_estate_dashboard
 
 # Change group ownership
 chown -R 777 dags data logs scripts
