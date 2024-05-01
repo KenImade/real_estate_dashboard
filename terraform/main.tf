@@ -72,8 +72,6 @@ resource "google_compute_instance" "uk-real-estate-analytics-vm" {
   deletion_protection = false
   project = var.project_id
 
-  metadata = {
-    "startup_script" = file(var.vm_startup_script_path)
-  }
+  metadata_startup_script =  templatefile("./vm-startup-script.sh", {})
   tags = ["data-pipeline"]
 }
