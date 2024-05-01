@@ -1,0 +1,16 @@
+services:
+    webserver:
+        volumes:
+            - ./dags:/opt/airflow/dags
+            - ./scripts/entrypoint.sh:/opt/airflow/scripts/entrypoint.sh
+            - ./logs:/opt/airflow/logs
+            - ./data:/opt/airflow/data
+            - ./dbt_real_estate/profiles.yml:/usr/local/airflow/dbt/profiles.yml
+
+    scheduler:
+        volumes:
+            - ./dags:/opt/airflow/dags
+            - ./scripts/entrypoint.sh:/opt/airflow/scripts/entrypoint.sh
+            - ./logs:/opt/airflow/logs
+            - ./data:/opt/airflow/data:rw
+            - ./dbt_real_estate/profiles.yml:/usr/local/airflow/dbt/profiles.yml
