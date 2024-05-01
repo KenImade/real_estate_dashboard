@@ -26,8 +26,7 @@
 #   None.
 echo "Running script as $(whoami)"
 
-echo "Exporting environment variables..."
-export ENVIRONMENT=prod
+echo "ENVIRONMENT=prod" | sudo tee -a /etc/environment
 
 sudo apt-get update
 sudo sudo apt-get install git
