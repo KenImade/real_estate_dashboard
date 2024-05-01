@@ -64,7 +64,7 @@ resource "google_compute_instance" "uk-real-estate-analytics-vm" {
   service_account {
     email = var.vm_service_account_email
     scopes = [
-      "https://www.googleapis.com/auth/bigquery.admin",
+      "https://www.googleapis.com/auth/bigquery",
       "https://www.googleapis.com/auth/devstorage.read_write"
     ]
   }
