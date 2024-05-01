@@ -33,11 +33,6 @@ variable "bq_dataset_friendly_name" {
     default = "uk-real-estate-analytics-dataset"
 }
 
-variable "vpc_network" {
-    description = "VPC Network"
-    default = "real-estate-vpc-network"
-}
-
 variable "vm_instance_name" {
     description = "VM Instance Name"
     default = "uk-real-estate-analytics-vm"
@@ -45,7 +40,7 @@ variable "vm_instance_name" {
 
 variable "vm_machine_type" {
     description = "VM Machine Type"
-    default = "e2-medium"
+    default = "e2-standard-4"
 }
 
 variable "vm_zone" {

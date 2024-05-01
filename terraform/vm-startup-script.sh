@@ -4,7 +4,7 @@
 # Author: Kenneth Imade
 # Date: 30/04/2024
 # Modified by: Kenneth Imade
-# Last Modified: 30/04/2024
+# Last Modified: 01/05/2024
 #
 #
 #
@@ -24,47 +24,48 @@
 # 
 # Dependencies:
 #   None.
+echo "Running script as $(whoami)"
 
-# Environment variable
+echo "Exporting environment variables..."
 export ENVIRONMENT=prod
 export GOOGLE_APPLICATION_CREDENTIALS_LOCAL=
 
-# Update the package listing
+sudo apt-get update
+sudo sudo apt-get install git
+
+# Add Docker's official GPG key:
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 
-# Install necessary packages for Docker
-sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+yes | sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# Add Docker’s official GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+echo "Cloning the repository..."
+git clone https://github.com/KenImade/real_estate_dashboard.git real_estate_dashboard
 
-# Set up the stable Docker repository
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+echo "Changing to the directory..."
+cd real_estate_dashboard
 
-# Update the package listing again
-sudo apt-get update
+# Change group ownership
+chown -R 777 dags data logs scripts
+chmod -R 777 dags data logs scripts
 
-# Install Docker CE
-sudo apt-get install -y docker-ce
+# Create env file
+echo "AIRFLOW_WEBSERVER_SECRET_KEY=KnsbA9ruUFuYMNoZfkuZXn6AxgBpokOFa-mUEdlw0Ec" >> .env
+echo "AIRFLOW_CONN_MY_GCP_CONNECTION='google-cloud-platform://'">>.env
+echo "GOOGLE_APPLICATION_CREDENTIALS_LOCAL=">>.env
 
-# Install Docker Compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+echo "Running Docker Compose..."
 
-# Add the current user to the Docker group
-sudo usermod -aG docker $USER
+sudo docker compose --env-file .env -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 
-# Make directory for application
-mkdir -p /usr/local/real_estate_dashboard
 
-# Clone repository
-git clone https://github.com/KenImade/real_estate_dashboard /usr/local/real_estate_dashboard
-cd /usr/local/real_estate_dashboard
-
-# Run Docker Compose
-docker-compose --env-file .env.production up -d
+echo "Script execution complete."

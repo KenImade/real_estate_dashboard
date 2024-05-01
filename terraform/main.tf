@@ -27,44 +27,19 @@ resource "google_bigquery_dataset" "uk_real_estate_analytics" {
   location = var.location
 }
 
-# Custom Network for VM
-resource "google_compute_network" "vpc_network" {
-  name                    = var.vpc_network
-  auto_create_subnetworks = false  # Important for creating custom subnetworks
-}
-
-resource "google_compute_subnetwork" "custom_subnetwork" {
-  name          = "custom-subnetwork"
-  network       = google_compute_network.vpc_network.name
-  ip_cidr_range = "10.0.0.0/16"
-  region        = var.region
-}
-
-resource "google_compute_firewall" "allow_ssh" {
-  name    = "ssh-and-icmp"
-  network = google_compute_network.vpc_network.name
+# Firewall
+resource "google_compute_firewall" "allow_ssh_http_https" {
+  name    = "allow-ssh-http-https"
+  network = "default"
 
   allow {
     protocol = "tcp"
-    ports    = ["22"]
+    ports    = ["22", "80", "443"]
   }
 
-  allow {
-    protocol = "icmp"
-  }
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["data-pipeline"]
 }
-
-resource "google_compute_firewall" "internal_traffic" {
-  name    = "internal-traffic"
-  network = google_compute_network.vpc_network.name
-
-  allow {
-    protocol = "all"
-  }
-
-  source_ranges = ["10.0.0.0/8"]
-}
-
 
 # VM Instance
 resource "google_compute_instance" "uk-real-estate-analytics-vm" {
@@ -75,12 +50,15 @@ resource "google_compute_instance" "uk-real-estate-analytics-vm" {
   boot_disk {
     initialize_params {
       image = var.vm_image
+      size = 50
     }
   }
 
   network_interface {
-    network    = "projects/personal-projects-420210/global/networks/real-estate-vpc-network"
-    subnetwork = google_compute_subnetwork.custom_subnetwork.self_link
+    network = "default"
+    access_config {
+      
+    }
   }
 
   service_account {
@@ -94,5 +72,8 @@ resource "google_compute_instance" "uk-real-estate-analytics-vm" {
   deletion_protection = false
   project = var.project_id
 
-  metadata_startup_script = file(var.vm_startup_script_path)
+  metadata = {
+    "startup_script" = file(var.vm_startup_script_path)
+  }
+  tags = ["data-pipeline"]
 }
