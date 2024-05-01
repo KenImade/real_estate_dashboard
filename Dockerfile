@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y wget
 USER airflow
 
 # requriements
-COPY ./requirements.txt /usr/local/airflow/requirements.txt
+COPY requirements.txt /usr/local/airflow/requirements.txt
 
 # Install Python dependencies from requirements.txt
 RUN pip install --upgrade pip && \
