@@ -1,6 +1,14 @@
 
 services:
     webserver:
+        environment:
+            - LOAD_EX=n
+            - EXECUTOR=CeleryExecutor
+            - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+            - AIRFLOW_UID=1000
+            - AIRFLOW__LOGGING__BASE_LOG_FOLDER=/opt/airflow/logs
+            - AIRFLOW__LOGGING__LOGGING_LEVEL=INFO
+            - ENVIRONMENT=test
         volumes:
             - ./dags:/opt/airflow/dags
             - ./scripts/entrypoint.sh:/opt/airflow/scripts/entrypoint.sh
@@ -10,6 +18,14 @@ services:
             - ./dbt_real_estate/profiles.yml:/usr/local/airflow/dbt/profiles.yml
 
     scheduler:
+        environment:
+            - LOAD_EX=n
+            - EXECUTOR=CeleryExecutor
+            - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+            - AIRFLOW_UID=1000
+            - AIRFLOW__LOGGING__BASE_LOG_FOLDER=/opt/airflow/logs
+            - AIRFLOW__LOGGING__LOGGING_LEVEL=INFO
+            - ENVIRONMENT=test
         volumes:
             - ./dags:/opt/airflow/dags
             - ./scripts/entrypoint.sh:/opt/airflow/scripts/entrypoint.sh
