@@ -23,10 +23,10 @@ USER root
 ENV DBT_PROFILES_DIR=/usr/local/airflow/dbt
 
 # Change the owner of the dbt directory and its contents to the airflow user
-RUN chown -R airflow:airflow /usr/local/airflow/dbt
+RUN chown -R 777 /usr/local/airflow/dbt
 
 # Ensure the airflow user has read, write, and execute permissions
-RUN chmod -R 755 /usr/local/airflow/dbt
+RUN chmod -R 777 /usr/local/airflow/dbt
 
 # Copy Essential files
 COPY ./dbt_real_estate /usr/local/airflow/dbt
