@@ -13,7 +13,12 @@ import os
 GCS_BUCKET_NAME = 'uk-real-estate-analytics-bucket-personal-projects-420210'
 GC_PROJECT_ID = 'personal-projects-420210'
 BQ_DATASET_NAME = 'uk_real_estate_analytics_bq_dataset_personal_projects_420210'
-GCS_CONN_ID = 'my_gcp_connection'
+
+if os.getenv('ENVIRONMENT') == 'test':
+    GCS_CONN_ID = 'my_gcp_connection'
+else:
+    GCS_CONN_ID = 'google_cloud_default'
+
 BQ_TABLE_NAME = 'uk_real_estate_analytics'
 
 

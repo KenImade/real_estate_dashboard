@@ -34,4 +34,6 @@ COPY ./dbt_real_estate /usr/local/airflow/dbt
 # Change working directory back to airflow home
 WORKDIR /usr/local/airflow
 
+ENV ENVIRONMENT=${ENVIRONMENT}
+
 USER airflow

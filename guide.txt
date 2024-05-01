@@ -1,0 +1,2 @@
+postcode link for dbt seed
+https://github.com/radiac/UK-Postcodes/blob/master/postcodes.csv

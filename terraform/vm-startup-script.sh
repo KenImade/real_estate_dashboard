@@ -28,7 +28,6 @@ echo "Running script as $(whoami)"
 
 echo "Exporting environment variables..."
 export ENVIRONMENT=prod
-export GOOGLE_APPLICATION_CREDENTIALS_LOCAL=
 
 sudo apt-get update
 sudo sudo apt-get install git
@@ -60,12 +59,14 @@ chmod -R 777 dags data logs scripts
 
 # Create env file
 echo "AIRFLOW_WEBSERVER_SECRET_KEY=KnsbA9ruUFuYMNoZfkuZXn6AxgBpokOFa-mUEdlw0Ec" >> .env
-echo "AIRFLOW_CONN_MY_GCP_CONNECTION='google-cloud-platform://'">>.env
-echo "GOOGLE_APPLICATION_CREDENTIALS_LOCAL=">>.env
 
 echo "Running Docker Compose..."
 
-sudo docker compose --env-file .env -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+sudo docker compose \
+    --env-file .env \
+    -f docker-compose.yml \
+    -f docker-compose.prod.yml up \
+    --build -d
 
 
 echo "Script execution complete."
