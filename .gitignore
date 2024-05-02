@@ -36,7 +36,8 @@ override.tf.json
 !terraform/main.tf
 !terraform/variables.tf
 !terraform/vm-startup-script.sh
-!terraform/.env.production
+!terraform/main-for-local-setup.tf
+!terraform/variables-for-local-setup.tf
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*

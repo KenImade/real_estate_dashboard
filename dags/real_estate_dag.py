@@ -10,8 +10,8 @@ import glob
 import os
 
 # Constants
-GCS_BUCKET_NAME = 'uk-real-estate-analytics-bucket-personal-projects-420210'
-GC_PROJECT_ID = 'personal-projects-420210'
+GCS_BUCKET_NAME = 'uk-real-estate-analytics-bucket-personal-projects-420210' # Replace this with your unique name
+GC_PROJECT_ID = 'personal-projects-420210' # Replace this with your Google Project ID
 BQ_DATASET_NAME = 'uk_real_estate_analytics_bq_dataset_personal_projects_420210'
 
 if os.getenv('ENVIRONMENT') == 'test':
@@ -41,7 +41,7 @@ def upload_files():
 
 
 default_args = {
-    'owner': 'kenneth',
+    'owner': 'kenneth', # You can change this if you want also
     'start_date': days_ago(1),
     'retries': 1,
     'retry_delay': timedelta(minutes=5),

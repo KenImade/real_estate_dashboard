@@ -1,3 +1,0 @@
-the plan
-
-download_data >> process data with pandas >> upload to google cloud storage >> move data to bigquery >> transform with dbt >> create dashboard

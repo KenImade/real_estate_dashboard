@@ -12,14 +12,14 @@ dbt_real_estate:
       threads: 2
       type: bigquery
     test:
-      dataset: uk_real_estate_analytics_bq_dataset_personal_projects_420210
+      dataset: uk_real_estate_analytics_bq_dataset_personal_projects_420210 # If you changed the name you will need to replace this.
       job_execution_timeout_seconds: 300
       job_retries: 1
       keyfile: /opt/airflow/secrets/key.json
       location: US
       method: service-account
       priority: interactive
-      project: personal-projects-420210
+      project: personal-projects-420210 # Replace with your Google Project ID
       threads: 2
       type: bigquery
     prod:
